@@ -24,7 +24,7 @@ makeLoginApp conn appConfig oidc authServerManager = do
   scottyApp $ do
     get "/__/logout" $ do
         setCookie $ defaultSetCookie
-          { setCookieName = "jaimdal"
+          { setCookieName = "__patova"
           , setCookieValue = ""
           , setCookiePath = Just "/"
           }
@@ -44,7 +44,7 @@ makeLoginApp conn appConfig oidc authServerManager = do
             (cs $ JSON.encode $ O.otherClaims $ O.idToken tokens)
           return ()
         setCookie $ defaultSetCookie
-          { setCookieName = "jaimdal"
+          { setCookieName = "__patova"
           , setCookieValue = (UUID.toASCIIBytes token)
           , setCookiePath = Just "/"
           }

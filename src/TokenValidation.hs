@@ -66,7 +66,7 @@ getUserFromToken conn req = runExceptT $ do
   (headerName, headerContent) <- liftEither $ maybeToRight "No hay header de cookies" $
     find (\(headerName, headerContent) -> headerName == hCookie) $ requestHeaders req
   (cookieName, cookieContent) <- liftEither $ maybeToRight "No hay cookie de autorization" $
-    find (\(cookieName, cookieContent) -> cookieName == "jaimdal") $ parseCookies headerContent
+    find (\(cookieName, cookieContent) -> cookieName == "__patova") $ parseCookies headerContent
   contenidoDeRedis <- ExceptT $ fmap ((maybeToRight "No estaba la key" =<<) . mapLeft (const "Falló redis")) $ Redis.runRedis conn $ do
     Redis.get cookieContent
   ExceptT $ return $ mapLeft (const "Fallo parsear el usuario") $ JSON.eitherDecodeStrict contenidoDeRedis
