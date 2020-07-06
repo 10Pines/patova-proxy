@@ -1,0 +1,36 @@
+resolver: lts-16.2
+
+# User packages to be built.
+# Various formats can be used as shown in the example below.
+#
+# packages:
+# - some-directory
+# - https://example.com/foo/bar/baz-0.0.2.tar.gz
+#   subdirs:
+#   - auto-update
+#   - wai
+packages:
+- .
+# Dependency packages to be pulled from upstream that are not in the resolver.
+# These entries can reference officially published versions as well as
+# forks / in-progress versions pinned to a git hash. For example:
+#
+
+# Override default flag values for local packages and extra-deps
+# flags: {}
+
+# Override the architecture used by stack, especially useful on Windows
+# arch: i386
+# arch: x86_64
+#
+# Extra directories used by stack for building
+# extra-include-dirs: [/path/to/dir]
+# extra-lib-dirs: [/path/to/dir]
+#
+# Allow a newer minor version of GHC than the snapshot specifies
+# compiler-check: newer-minor
+
+extra-deps:
+  - scotty-cookie-0.1.0.3@sha256:3ff1df13a5acba8ba170a5ac22b3ac6a2c227791292536ce1ebfc41038f58fc9,1204
+  - conferer-hedis-0.4.0.1@sha256:1e63db96fa95ed8596fe9d8a110157587592fe661ba8b0ac823aff569781ee57,1536
+  - oidc-client-0.5.1.0@sha256:b7562a90f7687741f961d9ead6b8bec7ab14824bc625709a12b04f2080a84161,3368

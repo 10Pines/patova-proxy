@@ -1,0 +1,159 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 7491cabcb5c58dd8911aa66a1cd86669b69086c133984c08fefd3e63c435a101
+
+name:           patova-proxy
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/patova#readme>
+homepage:       https://github.com/10pines/patova-proxy#readme
+bug-reports:    https://github.com/10pines/patova-proxy/issues
+author:         Lucas David Traverso
+maintainer:     ludat@10pines.com
+copyright:      2020 Lucas David Traverso
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/10pines/patova-proxy
+
+library
+  exposed-modules:
+      Config
+      Lib
+      LoginApp
+      TokenValidation
+  other-modules:
+      Paths_patova_proxy
+  hs-source-dirs:
+      src
+  default-extensions: OverloadedStrings TypeApplications LambdaCase
+  ghc-options: -Wall -fno-warn-orphans -fno-warn-type-defaults -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-exported-signatures
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , binary
+    , blaze-builder
+    , bytestring
+    , conferer
+    , conferer-hedis
+    , conferer-warp
+    , cookie
+    , cryptonite
+    , either
+    , hedis
+    , http-client
+    , http-client-tls
+    , http-reverse-proxy
+    , http-types
+    , lucid
+    , memory
+    , microlens-platform
+    , mtl
+    , oidc-client
+    , random
+    , scotty
+    , scotty-cookie
+    , string-conversions
+    , text
+    , utf8-string
+    , uuid
+    , wai
+    , wai-extra
+    , warp
+  default-language: Haskell2010
+
+executable patova-proxy
+  main-is: Main.hs
+  other-modules:
+      Paths_patova_proxy
+  hs-source-dirs:
+      app
+  default-extensions: OverloadedStrings TypeApplications LambdaCase
+  ghc-options: -Wall -fno-warn-orphans -fno-warn-type-defaults -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-exported-signatures -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , binary
+    , blaze-builder
+    , bytestring
+    , conferer
+    , conferer-hedis
+    , conferer-warp
+    , cookie
+    , cryptonite
+    , either
+    , hedis
+    , http-client
+    , http-client-tls
+    , http-reverse-proxy
+    , http-types
+    , lucid
+    , memory
+    , microlens-platform
+    , mtl
+    , oidc-client
+    , patova-proxy
+    , random
+    , scotty
+    , scotty-cookie
+    , string-conversions
+    , text
+    , utf8-string
+    , uuid
+    , wai
+    , wai-extra
+    , warp
+  default-language: Haskell2010
+
+test-suite patova-proxy-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_patova_proxy
+  hs-source-dirs:
+      test
+  default-extensions: OverloadedStrings TypeApplications LambdaCase
+  ghc-options: -Wall -fno-warn-orphans -fno-warn-type-defaults -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-exported-signatures -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , binary
+    , blaze-builder
+    , bytestring
+    , conferer
+    , conferer-hedis
+    , conferer-warp
+    , cookie
+    , cryptonite
+    , either
+    , hedis
+    , http-client
+    , http-client-tls
+    , http-reverse-proxy
+    , http-types
+    , lucid
+    , memory
+    , microlens-platform
+    , mtl
+    , oidc-client
+    , patova-proxy
+    , random
+    , scotty
+    , scotty-cookie
+    , string-conversions
+    , text
+    , utf8-string
+    , uuid
+    , wai
+    , wai-extra
+    , warp
+  default-language: Haskell2010

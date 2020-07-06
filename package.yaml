@@ -1,0 +1,87 @@
+name:                patova-proxy
+version:             0.1.0.0
+github:              "10pines/patova-proxy"
+license:             BSD3
+author:              "Lucas David Traverso"
+maintainer:          "ludat@10pines.com"
+copyright:           "2020 Lucas David Traverso"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+description: Please see the README on GitHub at <https://github.com/githubuser/patova#readme>
+
+dependencies:
+  - base >= 4.7 && < 5
+  - http-reverse-proxy
+  - cookie
+  - bytestring
+  - wai
+  - warp
+  - http-types
+  - http-client
+  - binary
+  - blaze-builder
+  - hedis
+  - scotty
+  - scotty-cookie
+  - lucid
+  - text
+  - utf8-string
+  - mtl
+  - either
+  - uuid
+  - random
+  - aeson
+  - memory
+  - cryptonite
+  - string-conversions
+  - conferer
+  - conferer-warp
+  - conferer-hedis
+  - wai-extra
+  - microlens-platform
+  - oidc-client
+  - http-client-tls
+
+ghc-options:
+  - -Wall
+  - -fno-warn-orphans
+  - -fno-warn-type-defaults
+  - -Wredundant-constraints
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wmissing-exported-signatures
+  # - -Werror
+
+
+library:
+  source-dirs: src
+
+default-extensions:
+  - OverloadedStrings
+  - TypeApplications
+  - LambdaCase
+
+executables:
+  patova-proxy:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - patova-proxy
+
+tests:
+  patova-proxy-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - patova-proxy
