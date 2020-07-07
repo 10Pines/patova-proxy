@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7491cabcb5c58dd8911aa66a1cd86669b69086c133984c08fefd3e63c435a101
+-- hash: 379f32e8a3925c34183015339720e9703ceb573ff4f5b094aa11f2db2f76a592
 
 name:           patova-proxy
 version:        0.1.0.0
@@ -54,9 +54,7 @@ library
     , http-client-tls
     , http-reverse-proxy
     , http-types
-    , lucid
     , memory
-    , microlens-platform
     , mtl
     , oidc-client
     , random
@@ -96,9 +94,7 @@ executable patova-proxy
     , http-client-tls
     , http-reverse-proxy
     , http-types
-    , lucid
     , memory
-    , microlens-platform
     , mtl
     , oidc-client
     , patova-proxy
@@ -140,9 +136,7 @@ test-suite patova-proxy-test
     , http-client-tls
     , http-reverse-proxy
     , http-types
-    , lucid
     , memory
-    , microlens-platform
     , mtl
     , oidc-client
     , patova-proxy

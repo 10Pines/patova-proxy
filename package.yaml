@@ -26,7 +26,6 @@ dependencies:
   - hedis
   - scotty
   - scotty-cookie
-  - lucid
   - text
   - utf8-string
   - mtl
@@ -41,7 +40,6 @@ dependencies:
   - conferer-warp
   - conferer-hedis
   - wai-extra
-  - microlens-platform
   - oidc-client
   - http-client-tls
 
