@@ -21,6 +21,7 @@ data AppConfig = AppConfig
   , appConfigServer :: Settings
   , appConfigOidc :: OidcConfig
   , appConfigRedis :: Redis.ConnectInfo
+  , appConfigKeyPrefix :: ByteString
   , appConfigExternalUrl :: ByteString
   , appConfigAllowedUsers :: Text
   } deriving (Generic, Show)
@@ -29,6 +30,7 @@ instance C.DefaultConfig AppConfig where
   configDef = AppConfig
     { appConfigSessionDurationSeconds = 60 * 60 * 24
     , appConfigProxy = C.configDef
+    , appConfigKeyPrefix = "patova/"
     , appConfigOidc = C.configDef
     , appConfigServer = setPort 3334 defaultSettings
     , appConfigRedis = C.configDef

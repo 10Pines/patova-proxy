@@ -42,7 +42,7 @@ proxyOrHandleRequest appConfig conn loginApp req = do
   if rawPathInfo req == "/__/logout"
     then return $ WPRApplication loginApp
     else
-      User.getUserFromToken conn req
+      User.getUserFromToken appConfig conn req
       >>= \case
         Left e -> do
           print e

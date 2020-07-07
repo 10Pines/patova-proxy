@@ -34,13 +34,12 @@ makeLoginApp conn appConfig oidc authServerManager = do
         code <- param @ByteString "code"
         liftIO $ print code
         tokens <- liftIO $ O.requestTokens @JSON.Value oidc Nothing code authServerManager
-        liftIO $ putStrLn $ cs $ JSON.encode $ O.otherClaims $ O.idToken $ tokens
 
         token <- liftIO $ randomIO @UUID
         _ <- liftIO $ Redis.runRedis conn $ do
-          _ <- Redis.setex 
-            (UUID.toASCIIBytes token) 
-            (appConfigSessionDurationSeconds appConfig) 
+          _ <- Redis.setex
+            (appConfigKeyPrefix appConfig <> UUID.toASCIIBytes token)
+            (appConfigSessionDurationSeconds appConfig)
             (cs $ JSON.encode $ O.otherClaims $ O.idToken tokens)
           return ()
         setCookie $ defaultSetCookie
@@ -51,7 +50,7 @@ makeLoginApp conn appConfig oidc authServerManager = do
         redirect "/"
 
     get "/__/auth/redirect" $ do
-        r <- O.getAuthenticationRequestUrl oidc [O.profile, O.email] Nothing [] 
+        r <- O.getAuthenticationRequestUrl oidc [O.profile, O.email] Nothing []
         redirect $ cs $ show r
 
     matchAny (regex ".*") $ do
