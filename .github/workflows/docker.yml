@@ -2,11 +2,10 @@ name: Docker
 
 on:
   push:
-    branches:    
-      # Push events on master branch
-      - master  
-    tags:        
-      - '*'
+    branches:
+      - master
+    tags:
+      - '**'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,7 +25,7 @@ jobs:
         # Comma-delimited list of build-time variables
         # build_args: # optional
         # Comma-delimited list of images to consider as cache sources
-        # cache_froms: # optional
+        cache_froms: ludat/patova-proxy:latest # optional
         # Comma-delimited list of labels to add to the built image
         # labels: # optional
         # Adds labels with git repository information to the built image
