@@ -22,6 +22,9 @@
 <body>
   <div>
    <h2>Authentication</h2>
+   {{#error}}
+   <p> There was an error: {{error}} </p>
+   {{/error}}
    <a href="/__/auth/redirect"><button type="button">Login</button></a>
   </div>
 </body>

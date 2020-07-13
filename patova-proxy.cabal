@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 379f32e8a3925c34183015339720e9703ceb573ff4f5b094aa11f2db2f76a592
+-- hash: c31a3af1b155cf5fc85a5140780918544f50d3e091d11efc9b06c521498398c7
 
 name:           patova-proxy
 version:        0.1.0.0
@@ -60,6 +60,7 @@ library
     , random
     , scotty
     , scotty-cookie
+    , stache
     , string-conversions
     , text
     , utf8-string
@@ -101,6 +102,7 @@ executable patova-proxy
     , random
     , scotty
     , scotty-cookie
+    , stache
     , string-conversions
     , text
     , utf8-string
@@ -143,6 +145,7 @@ test-suite patova-proxy-test
     , random
     , scotty
     , scotty-cookie
+    , stache
     , string-conversions
     , text
     , utf8-string

@@ -42,6 +42,7 @@ dependencies:
   - wai-extra
   - oidc-client
   - http-client-tls
+  - stache
 
 ghc-options:
   - -Wall

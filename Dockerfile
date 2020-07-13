@@ -5,7 +5,7 @@ COPY package.yaml stack.yaml stack.yaml.lock patova-proxy.cabal /opt/build/
 RUN stack build --system-ghc --only-dependencies --test
 COPY . /opt/build/
 RUN stack install --system-ghc --local-bin-path /opt/build/dist/ && \
-    cp login.html /opt/build/dist/
+    cp login.mustache /opt/build/dist/
 
 FROM ubuntu:18.04
 RUN mkdir -p /opt/patova-proxy
