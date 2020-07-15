@@ -49,7 +49,6 @@ getUserFromToken appConfig conn req = runExceptT $ do
       Redis.get $ appConfigKeyPrefix appConfig <> cookieContent
   user <- ExceptT $ return $ mapLeft (const "Failed to decode user from database, try logging in again") $ JSON.eitherDecodeStrict contenidoDeRedis
   let validUsers = filter (/= "") $ Text.split (== ',') $ appConfigAllowedUsers appConfig
-  liftIO $ print user
   if appConfigAllowedUsers appConfig == "*"
     then do
       return user

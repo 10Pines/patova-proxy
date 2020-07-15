@@ -32,7 +32,6 @@ makeLoginApp conn appConfig oidc authServerManager = do
 
     get "/__/oauth2/callback" $ do
         code <- param @ByteString "code"
-        liftIO $ print code
         tokens <- liftIO $ O.requestTokens @JSON.Value oidc Nothing code authServerManager
 
         token <- liftIO $ randomIO @UUID
