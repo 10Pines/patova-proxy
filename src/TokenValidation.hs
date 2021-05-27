@@ -30,7 +30,7 @@ instance JSON.ToJSON BackofficePayload
 instance JSON.FromJSON BackofficePayload
 
 data GoogleAuthPayload = GoogleAuthPayload
-  { hd :: Text
+  { hd :: Maybe Text
   , email :: Text
   , email_verified :: Bool
   , given_name :: Text

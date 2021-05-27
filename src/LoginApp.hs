@@ -43,7 +43,7 @@ makeLoginApp conn appConfig oidc authServerManager = do
           return ()
         setCookie $ defaultSetCookie
           { setCookieName = "__patova"
-          , setCookieValue = (UUID.toASCIIBytes token)
+          , setCookieValue = UUID.toASCIIBytes token
           , setCookiePath = Just "/"
           }
         redirect "/"

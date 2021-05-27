@@ -1,10 +1,9 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.33.0.
+-- This file has been generated from package.yaml by hpack version 0.34.4.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c31a3af1b155cf5fc85a5140780918544f50d3e091d11efc9b06c521498398c7
 
 name:           patova-proxy
 version:        0.1.0.0
@@ -35,7 +34,10 @@ library
       Paths_patova_proxy
   hs-source-dirs:
       src
-  default-extensions: OverloadedStrings TypeApplications LambdaCase
+  default-extensions:
+      OverloadedStrings
+      TypeApplications
+      LambdaCase
   ghc-options: -Wall -fno-warn-orphans -fno-warn-type-defaults -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-exported-signatures
   build-depends:
       aeson
@@ -76,7 +78,10 @@ executable patova-proxy
       Paths_patova_proxy
   hs-source-dirs:
       app
-  default-extensions: OverloadedStrings TypeApplications LambdaCase
+  default-extensions:
+      OverloadedStrings
+      TypeApplications
+      LambdaCase
   ghc-options: -Wall -fno-warn-orphans -fno-warn-type-defaults -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-exported-signatures -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
@@ -119,7 +124,10 @@ test-suite patova-proxy-test
       Paths_patova_proxy
   hs-source-dirs:
       test
-  default-extensions: OverloadedStrings TypeApplications LambdaCase
+  default-extensions:
+      OverloadedStrings
+      TypeApplications
+      LambdaCase
   ghc-options: -Wall -fno-warn-orphans -fno-warn-type-defaults -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-exported-signatures -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
