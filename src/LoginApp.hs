@@ -19,8 +19,8 @@ import qualified Web.OIDC.Client as O
 import           Web.Scotty
 import           Web.Scotty.Cookie
 
-makeLoginApp :: Redis.Connection -> AppConfig -> O.OIDC -> Client.Manager -> IO Application
-makeLoginApp conn appConfig oidc authServerManager = do
+makeLoginApp :: Redis.Connection -> AppConfig -> IO O.OIDC -> Client.Manager -> IO Application
+makeLoginApp conn appConfig mkOidc authServerManager = do
   scottyApp $ do
     get "/__/logout" $ do
         setCookie $ defaultSetCookie
@@ -32,6 +32,7 @@ makeLoginApp conn appConfig oidc authServerManager = do
 
     get "/__/oauth2/callback" $ do
         code <- param @ByteString "code"
+        oidc <- liftIO mkOidc
         tokens <- liftIO $ O.requestTokens @JSON.Value oidc Nothing code authServerManager
 
         token <- liftIO $ randomIO @UUID
@@ -49,6 +50,7 @@ makeLoginApp conn appConfig oidc authServerManager = do
         redirect "/"
 
     get "/__/auth/redirect" $ do
+        oidc <- liftIO mkOidc
         r <- O.getAuthenticationRequestUrl oidc [O.profile, O.email] Nothing []
         redirect $ cs $ show r
 

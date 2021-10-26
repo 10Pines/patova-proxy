@@ -42,17 +42,18 @@ startPatovaProxy = do
 
   Redis.withCheckedConnect (appConfigRedis appConfig) $ \conn -> do
     authServerManager <- Client.newManager tlsManagerSettings
-    prov <- OIDC.discover (oidcConfigClientBaseUrl $ appConfigOidc appConfig) authServerManager
-    let oidc = OIDC.setCredentials
-                (oidcConfigClientId $ appConfigOidc appConfig)
-                (oidcConfigClientSecret $ appConfigOidc appConfig)
-                (appConfigExternalUrl appConfig) $ OIDC.newOIDC prov
-    loginApp <- makeLoginApp conn appConfig oidc authServerManager
+    let mkOidc = do
+          prov <- OIDC.discover (oidcConfigClientBaseUrl $ appConfigOidc appConfig) authServerManager
+          pure $ OIDC.setCredentials
+                      (oidcConfigClientId $ appConfigOidc appConfig)
+                      (oidcConfigClientSecret $ appConfigOidc appConfig)
+                      (appConfigExternalUrl appConfig) $ OIDC.newOIDC prov
+    loginApp <- makeLoginApp conn appConfig mkOidc authServerManager
     runSettings (appConfigServer appConfig) $
-      WaiLogger.logStdout $ waiProxyTo (proxyOrHandleRequest appConfig conn oidc authServerManager) defaultOnExc manager
+      WaiLogger.logStdout $ waiProxyTo (proxyOrHandleRequest appConfig conn mkOidc authServerManager) defaultOnExc manager
 
-proxyOrHandleRequest :: AppConfig -> Redis.Connection -> OIDC.OIDC -> Client.Manager -> Request -> IO WaiProxyResponse
-proxyOrHandleRequest appConfig conn oidc authServerManager req = do
+proxyOrHandleRequest :: AppConfig -> Redis.Connection -> IO OIDC.OIDC -> Client.Manager -> Request -> IO WaiProxyResponse
+proxyOrHandleRequest appConfig conn mkOidc authServerManager req = do
   case pathInfo req of
     ["__", "logout"] -> do
         let cookie = toLazyByteString $ renderSetCookie $ defaultSetCookie
@@ -65,6 +66,7 @@ proxyOrHandleRequest appConfig conn oidc authServerManager req = do
 
     ["__", "oauth2", "callback"] -> do
         let code = fromJust $ snd $ head $ filter ((== "code") . fst) $ queryString req
+        oidc <- mkOidc
         tokens <- OIDC.requestTokens @JSON.Value oidc Nothing code authServerManager
 
         token <- randomIO @UUID
@@ -83,6 +85,7 @@ proxyOrHandleRequest appConfig conn oidc authServerManager req = do
           responseLBS status200 [(hSetCookie, cs cookie)] "<html><head><meta http-equiv=\"refresh\" content=\"0;URL='/'\"></head><body>Redirecting</body></html>"
 
     [ "__", "auth", "redirect"] -> do
+        oidc <- mkOidc
         r <- OIDC.getAuthenticationRequestUrl oidc [OIDC.profile, OIDC.email] Nothing []
         return $ WPRResponse $
           responseLBS status302 [(hLocation, cs $ show r)] ""
